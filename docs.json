@@ -1,0 +1,14 @@
+{
+  "docs": [
+    {
+      "id": "sharing-state-between-components",
+      "title": "Sharing state between components",
+      "path": "ManageState/SharingStateBetweenComponents"
+    },
+    {
+      "id": "prohibit",
+      "title": "Don\u2019t allow change original data",
+      "path": "Prohibit.md"
+    }
+  ]
+}

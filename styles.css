@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color: #1f2933;
+  background: #f5f7fb;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 24px 20px;
+}
+
+.site-title {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.doc-link {
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.doc-link.active {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.content {
+  padding: 32px 40px;
+}
+
+.doc-content h2 {
+  margin: 0 0 12px;
+  font-size: 26px;
+}
+
+.doc-content p {
+  margin: 0 0 16px;
+  line-height: 1.7;
+}
+
+.code-block {
+  background: #111827;
+  color: #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  overflow: auto;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 14px;
+}
+
+.code-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  white-space: pre;
+  line-height: 1.6;
+}
+
+.code-text {
+  flex: 1;
+}
+
+.note-toggle {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.note-toggle[aria-expanded="true"] {
+  background: #0ea5e9;
+}
+
+.note {
+  margin: 6px 0 12px;
+  padding: 8px 12px;
+  background: #1f2937;
+  border-radius: 8px;
+  color: #cbd5f5;
+  white-space: pre-wrap;
+  font-size: 13px;
+}
+
+.empty-code {
+  color: #94a3b8;
+}
+
+.divider {
+  margin: 24px 0;
+  border: none;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+@media (max-width: 900px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .content {
+    padding: 24px;
+  }
+}
