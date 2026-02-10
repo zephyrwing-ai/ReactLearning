@@ -1,0 +1,6 @@
+React 内部用 Fiber Tree 表示虚拟 UI 结构，
+Fiber 是每一个节点的工作单元，Diff 在 Fiber Tree 之间运行，
+并把更新结果记录在 Fiber 的 flags 上，
+最后 Commit 阶段根据 flags 更新真实 DOM。
+
+Diff是一种算法，用来计算新生成的Fiber虚拟树和之前的Fiber虚拟树有什么不一样，然后对新的Fiber虚拟树需要修改的节点打上需要修改的内容的标签，之后就是更新

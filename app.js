@@ -1,5 +1,6 @@
 const docList = document.getElementById("docList");
 const docContent = document.getElementById("docContent");
+const siteTitle = document.querySelector(".site-title");
 
 const CODE_START_PATTERN = /[{};]|^\s*(import|export|function|const|let|class)\b/;
 
@@ -198,21 +199,48 @@ async function loadDoc(doc) {
   history.replaceState(null, "", `#${doc.id}`);
 }
 
-function renderDocList(docs) {
+function normalizeDocs(payload) {
+  if (!payload) {
+    return { title: "ReactLearning", sections: [], flatDocs: [] };
+  }
+
+  const title = payload.title || "ReactLearning";
+  let sections = [];
+
+  if (Array.isArray(payload.sections)) {
+    sections = payload.sections;
+  } else if (Array.isArray(payload.docs)) {
+    sections = [{ id: "docs", title: "Docs", items: payload.docs }];
+  } else if (Array.isArray(payload)) {
+    sections = [{ id: "docs", title: "Docs", items: payload }];
+  }
+
+  const flatDocs = sections.flatMap((section) => section.items || []);
+  return { title, sections, flatDocs };
+}
+
+function renderDocList(sections) {
   docList.innerHTML = "";
-  docs.forEach((doc) => {
-    const link = document.createElement("a");
-    link.href = `#${doc.id}`;
-    link.className = "doc-link";
-    link.textContent = doc.title;
-    link.dataset.docId = doc.id;
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      loadDoc(doc).catch((error) => {
-        docContent.textContent = `加载失败：${error.message}`;
+  sections.forEach((section) => {
+    const sectionTitle = document.createElement("div");
+    sectionTitle.className = "doc-section-title";
+    sectionTitle.textContent = section.title;
+    docList.appendChild(sectionTitle);
+
+    (section.items || []).forEach((doc) => {
+      const link = document.createElement("a");
+      link.href = `#${doc.id}`;
+      link.className = "doc-link";
+      link.textContent = doc.title;
+      link.dataset.docId = doc.id;
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        loadDoc(doc).catch((error) => {
+          docContent.textContent = `加载失败：${error.message}`;
+        });
       });
+      docList.appendChild(link);
     });
-    docList.appendChild(link);
   });
 }
 
@@ -222,11 +250,16 @@ async function init() {
     docContent.textContent = "无法读取文档列表。";
     return;
   }
-  const { docs } = await response.json();
-  renderDocList(docs);
+  const payload = await response.json();
+  const { title, sections, flatDocs } = normalizeDocs(payload);
+  if (siteTitle) {
+    siteTitle.textContent = title;
+  }
+  renderDocList(sections);
 
   const initialId = location.hash.replace("#", "");
-  const initialDoc = docs.find((doc) => doc.id === initialId) || docs[0];
+  const initialDoc =
+    flatDocs.find((doc) => doc.id === initialId) || flatDocs[0];
   if (initialDoc) {
     loadDoc(initialDoc).catch((error) => {
       docContent.textContent = `加载失败：${error.message}`;

@@ -1,14 +1,27 @@
 {
-  "docs": [
+  "title": "ReactLearning",
+  "sections": [
     {
-      "id": "sharing-state-between-components",
-      "title": "Sharing state between components",
-      "path": "ManageState/SharingStateBetweenComponents"
+      "id": "manage-state",
+      "title": "ManageState",
+      "items": [
+        {
+          "id": "sharing-state-between-components",
+          "title": "Sharing state between components",
+          "path": "ManageState/SharingStateBetweenComponents"
+        }
+      ]
     },
     {
-      "id": "prohibit",
-      "title": "Don\u2019t allow change original data",
-      "path": "Prohibit.md"
+      "id": "root",
+      "title": "Root",
+      "items": [
+        {
+          "id": "prohibit",
+          "title": "Don\u2019t allow change original data",
+          "path": "Prohibit.md"
+        }
+      ]
     }
   ]
 }

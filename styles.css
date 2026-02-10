@@ -34,6 +34,14 @@ body {
   gap: 6px;
 }
 
+.doc-section-title {
+  margin-top: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
 .doc-link {
   padding: 8px 10px;
   border-radius: 8px;
